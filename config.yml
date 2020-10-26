@@ -1,0 +1,7 @@
+consumer:
+  consumerGroup: test-consumer
+  topic: test-topic
+  zkHost: localhost:2181
+
+server:
+  port: ":8080"
