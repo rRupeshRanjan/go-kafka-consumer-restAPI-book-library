@@ -121,7 +121,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/config/AppConfig.go</url>
-          <line>36</line>
+          <line>19</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

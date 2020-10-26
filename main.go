@@ -29,7 +29,7 @@ func main()  {
 func initializeKafkaConsumer() {
 	defer wg.Done()
 
-	consumerGroup, consumerInitErr := config.InitConsumer()
+	consumerGroup, consumerInitErr := consumer.InitConsumer()
 	errorHandler(consumerInitErr, "consumerGroup")
 
 	defer consumerGroup.Close()
