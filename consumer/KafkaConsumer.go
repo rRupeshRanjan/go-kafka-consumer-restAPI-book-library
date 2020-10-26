@@ -3,9 +3,9 @@ package consumer
 import (
 	"github.com/Shopify/sarama"
 	"github.com/wvanbergen/kafka/consumergroup"
+	"go-kafka-consumer-restAPI-book-library/config"
+	"go-kafka-consumer-restAPI-book-library/services"
 	"go.uber.org/zap"
-	"kafka-consumer/config"
-	"kafka-consumer/services"
 	"time"
 )
 
@@ -29,7 +29,7 @@ func Consume(consumerGroup *consumergroup.ConsumerGroup, topic string) {
 	for {
 		select {
 		// messages coming through channel
-		case msg := <- consumerGroup.Messages():
+		case msg := <-consumerGroup.Messages():
 			if msg.Topic == topic {
 				log.Info(msg.Topic + " -----> " + string(msg.Value))
 				services.ProcessMessage(msg.Value)

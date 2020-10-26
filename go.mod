@@ -1,4 +1,4 @@
-module kafka-consumer
+module go-kafka-consumer-restAPI-book-library
 
 go 1.15
 

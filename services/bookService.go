@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"go-kafka-consumer-restAPI-book-library/domain"
+	"go-kafka-consumer-restAPI-book-library/repository"
 	"go.uber.org/zap"
-	"kafka-consumer/domain"
-	"kafka-consumer/repository"
 	"net/http"
 )
 
@@ -64,7 +64,7 @@ func GetBookByIdHandler(w http.ResponseWriter, r *http.Request) {
 
 		for rows.Next() {
 			_ = rows.Scan(&ISBN, &name, &author)
-			book = domain.Book{ISBN: ISBN, Name : name, Author: author}
+			book = domain.Book{ISBN: ISBN, Name: name, Author: author}
 		}
 		_, _ = fmt.Fprint(w, getString(book))
 	} else {
@@ -87,7 +87,7 @@ func GetAllBooksHandler(w http.ResponseWriter, _ *http.Request) {
 
 		for rows.Next() {
 			_ = rows.Scan(&ISBN, &name, &author)
-			books = append(books, domain.Book{ISBN: ISBN, Name : name, Author: author})
+			books = append(books, domain.Book{ISBN: ISBN, Name: name, Author: author})
 		}
 		_, _ = fmt.Fprint(w, getString(books))
 	} else {

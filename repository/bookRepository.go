@@ -3,20 +3,19 @@ package repository
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
+	"go-kafka-consumer-restAPI-book-library/domain"
 	"go.uber.org/zap"
-	"kafka-consumer/domain"
 )
 
 var database *sql.DB
 var log, _ = zap.NewProduction()
 
 const (
-	getQuery 					= "SELECT * FROM books WHERE ISBN=?"
-	getAllQuery 				= "SELECT ISBN, name, author FROM books"
-	insertQuery 				= "INSERT INTO books (name, author) VALUES (?, ?)"
-	updateQuery 				= "UPDATE books SET name=?, author=? where ISBN=?"
-	initializeDatabaseQuery =
-		`CREATE TABLE IF NOT EXISTS books (
+	getQuery                = "SELECT * FROM books WHERE ISBN=?"
+	getAllQuery             = "SELECT ISBN, name, author FROM books"
+	insertQuery             = "INSERT INTO books (name, author) VALUES (?, ?)"
+	updateQuery             = "UPDATE books SET name=?, author=? where ISBN=?"
+	initializeDatabaseQuery = `CREATE TABLE IF NOT EXISTS books (
 		ISBN INTEGER PRIMARY KEY,
 		name TEXT,
 		author TEXT);`
@@ -32,7 +31,7 @@ func GetAllBooks() (*sql.Rows, error) {
 	return database.Query(getAllQuery)
 }
 
-func GetBookById(id string) (*sql.Rows, error){
+func GetBookById(id string) (*sql.Rows, error) {
 	return database.Query(getQuery, id)
 }
 
