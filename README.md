@@ -8,6 +8,7 @@ it creates/updates the records in database. Additionally, it exposes certain end
 - Exposing Restful APIs for reading data from database
 - Config management from external files (Using Viper)
 - Logging (Using zap)
+- Unit testing (go test ./... to run all tests)
 
 #### Tech used:
 1. Go - v1.15
@@ -23,3 +24,7 @@ it creates/updates the records in database. Additionally, it exposes certain end
 6. Kafka consumer
     - "github.com/Shopify/sarama"
     - "github.com/wvanbergen/kafka/consumergroup"
+7. Unit testing
+    - "testing"
+    - "github.com/stretchr/testify/assert"
+    

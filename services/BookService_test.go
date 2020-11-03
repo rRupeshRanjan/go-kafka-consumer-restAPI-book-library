@@ -35,23 +35,40 @@ func (b booksRepositoryMock) updateBook(book domain.Book) (int64, error) {
 	return booksRepositoryUpdateMock(book)
 }
 
-func TestIsValidFalseForInvalidData(t *testing.T) {
-	var books = []domain.Book{
-		{ISBN: 1, Name: "Book", Author: "Author"},
-		{ISBN: 2, Name: "Book", Author: ""},
-		{ISBN: 3, Name: "", Author: "Author"},
+func TestIsValidData(t *testing.T) {
+	tests := []struct {
+		name string
+		args domain.Book
+		want bool
+	}{
+		{
+			name: "ISBN data should be null for validity",
+			args: domain.Book{ISBN: 1, Name: "Book", Author: "Author"},
+			want: false,
+		},
+		{
+			name: "Author name should be non-empty string for validity",
+			args: domain.Book{ISBN: 2, Name: "Book", Author: ""},
+			want: false,
+		},
+		{
+			name: "Book name should be non-empty for validity",
+			args: domain.Book{ISBN: 3, Name: "", Author: "Author"},
+			want: false,
+		},
+		{
+			name: "Valid book data",
+			args: domain.Book{Name: "Book", Author: "Author"},
+			want: true,
+		},
 	}
 
-	for _, book := range books {
-		valid := isValid(book)
-		assert.False(t, valid)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			valid := isValid(tt.args)
+			assert.Equal(t, tt.want, valid)
+		})
 	}
-}
-
-func TestIsValidTrue(t *testing.T) {
-	var book = domain.Book{Name: "Book", Author: "Author"}
-	valid := isValid(book)
-	assert.True(t, valid)
 }
 
 func TestProcessMessageCreateBookIfValid(t *testing.T) {

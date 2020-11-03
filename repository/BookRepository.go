@@ -7,8 +7,10 @@ import (
 	"go.uber.org/zap"
 )
 
-var database *sql.DB
-var log, _ = zap.NewProduction()
+var (
+	database *sql.DB
+	log, _   = zap.NewProduction()
+)
 
 const (
 	getQuery                = "SELECT * FROM books WHERE ISBN=?"
@@ -62,6 +64,7 @@ func CreateBook(book domain.Book) (int64, error) {
 	result, createRecordErr := statement.Exec(book.Name, book.Author)
 	if createRecordErr != nil {
 		log.Error("Error while creating record into books table: " + createRecordErr.Error())
+		return -1, createRecordErr
 	}
 	return result.LastInsertId()
 }
@@ -71,6 +74,7 @@ func UpdateBook(book domain.Book) (int64, error) {
 	result, updateRecordErr := statement.Exec(book.Name, book.Author, book.ISBN)
 	if updateRecordErr != nil {
 		log.Error("Error while updating record in books table: " + updateRecordErr.Error())
+		return -1, updateRecordErr
 	}
 	return result.LastInsertId()
 }

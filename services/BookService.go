@@ -12,6 +12,13 @@ import (
 	"strconv"
 )
 
+var (
+	booksRepository BookRepositoryInterface
+	log, _          = zap.NewProduction()
+)
+
+type BookRepository struct{}
+
 type BookRepositoryInterface interface {
 	getBookById(id string) ([]domain.Book, error)
 	getAllBooks() ([]domain.Book, error)
@@ -34,11 +41,6 @@ func (b BookRepository) createBook(book domain.Book) (int64, error) {
 func (b BookRepository) updateBook(book domain.Book) (int64, error) {
 	return repository.UpdateBook(book)
 }
-
-type BookRepository struct{}
-
-var booksRepository BookRepositoryInterface
-var log, _ = zap.NewProduction()
 
 func ProcessMessage(msg []byte) (int64, error) {
 	var book domain.Book
