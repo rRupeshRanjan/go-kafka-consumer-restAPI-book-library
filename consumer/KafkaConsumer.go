@@ -32,10 +32,12 @@ func Consume(consumerGroup *consumergroup.ConsumerGroup, topic string) {
 		case msg := <-consumerGroup.Messages():
 			if msg.Topic == topic {
 				log.Info(msg.Topic + " -----> " + string(msg.Value))
-				services.ProcessMessage(msg.Value)
-				err := consumerGroup.CommitUpto(msg)
-				if err != nil {
-					log.Error("Error committing offset: " + err.Error())
+				_, processErr := services.ProcessMessage(msg.Value)
+				if processErr == nil || processErr.Error() == config.InvalidDataMessage {
+					err := consumerGroup.CommitUpto(msg)
+					if err != nil {
+						log.Error("Error committing offset: " + err.Error())
+					}
 				}
 			}
 		}

@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>services: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">go-kafka-consumer-restAPI-book-library/services/bookService.go (90.9%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package services
+
+import (
+        "encoding/json"
+        "errors"
+        "fmt"
+        "github.com/gorilla/mux"
+        "go-kafka-consumer-restAPI-book-library/domain"
+        "go-kafka-consumer-restAPI-book-library/repository"
+        "go.uber.org/zap"
+        "net/http"
+        "strconv"
+)
+
+type BookRepositoryInterface interface {
+        getBookById(id string) ([]domain.Book, error)
+        getAllBooks() ([]domain.Book, error)
+        createBook(book domain.Book) (int64, error)
+        updateBook(book domain.Book) (int64, error)
+}
+
+func (b BookRepository) getBookById(id string) ([]domain.Book, error) <span class="cov0" title="0">{
+        return repository.GetBookById(id)
+}</span>
+
+func (b BookRepository) getAllBooks() ([]domain.Book, error) <span class="cov0" title="0">{
+        return repository.GetAllBooks()
+}</span>
+
+func (b BookRepository) createBook(book domain.Book) (int64, error) <span class="cov0" title="0">{
+        return repository.CreateBook(book)
+}</span>
+
+func (b BookRepository) updateBook(book domain.Book) (int64, error) <span class="cov0" title="0">{
+        return repository.UpdateBook(book)
+}</span>
+
+type BookRepository struct{}
+
+var booksRepository BookRepositoryInterface
+var log, _ = zap.NewProduction()
+
+func ProcessMessage(msg []byte) (int64, error) <span class="cov8" title="1">{
+        var book domain.Book
+        var isbn int64
+
+        err := json.Unmarshal(msg, &amp;book)
+        if err != nil  || !isValid(book)</span><span class="cov8" title="1">{
+                err = errors.New("invalid data received")
+                log.Error("Invalid record received (wont be inserted into db): " + string(msg))
+        }</span> else<span class="cov8" title="1"> {
+                id := strconv.FormatInt(book.ISBN, 10)
+                bookRow, _ := booksRepository.getBookById(id)
+                if len(bookRow) == 1 </span><span class="cov8" title="1">{
+                        isbn, err = updateBook(bookRow[0])
+                }</span> else<span class="cov8" title="1"> {
+                        isbn, err = createBook(book)
+                }</span>
+
+                <span class="cov8" title="1">if err == nil </span><span class="cov8" title="1">{
+                        return isbn, nil
+                }</span> else<span class="cov8" title="1"> {
+                        log.Error("Failed processing message: " + err.Error())
+                }</span>
+        }
+
+        <span class="cov8" title="1">return -1, err</span>
+}
+
+func isValid(book domain.Book) bool <span class="cov8" title="1">{
+        return book.ISBN == 0 &amp;&amp; len(book.Name) &gt; 0 &amp;&amp; len(book.Author) &gt; 0
+}</span>
+
+func createBook(book domain.Book) (int64, error)<span class="cov8" title="1">{
+        isbn, err := booksRepository.createBook(book)
+        if err == nil </span><span class="cov8" title="1">{
+                book.ISBN = isbn
+                log.Info("Successfully inserted kafka record to database: " + getString(book))
+                return isbn, nil
+        }</span>
+        <span class="cov8" title="1">return -1, err</span>
+}
+
+func updateBook(book domain.Book) (int64, error)<span class="cov8" title="1">{
+        isbn, err := booksRepository.updateBook(book)
+        if err == nil </span><span class="cov8" title="1">{
+                book.ISBN = isbn
+                log.Info("Successfully updated book: " + getString(book))
+                return isbn, nil
+        }</span>
+        <span class="cov8" title="1">return -1, err</span>
+}
+
+func GetBookByIdHandler(w http.ResponseWriter, r *http.Request) <span class="cov8" title="1">{
+        w.Header().Set("Content-Type", "application/json")
+        vars := mux.Vars(r)
+        id := vars["id"]
+
+        books, err := booksRepository.getBookById(id)
+
+        if err == nil </span><span class="cov8" title="1">{
+                if len(books) == 0 </span><span class="cov8" title="1">{
+                        w.WriteHeader(http.StatusNotFound)
+                }</span> else<span class="cov8" title="1"> {
+                        _, _ = fmt.Fprint(w, getString(books[0]))
+                }</span>
+        } else<span class="cov8" title="1"> {
+                log.Error("Error while getting book with id " + id + " with error: " + err.Error())
+                w.WriteHeader(http.StatusInternalServerError)
+        }</span>
+
+}
+
+func GetAllBooksHandler(w http.ResponseWriter, _ *http.Request) <span class="cov8" title="1">{
+        w.Header().Set("Content-Type", "application/json")
+
+        var books []domain.Book
+        books, err := booksRepository.getAllBooks()
+
+        if err == nil </span><span class="cov8" title="1">{
+                _, _ = fmt.Fprint(w, getString(books))
+        }</span> else<span class="cov8" title="1"> {
+                log.Error("Error while getting all books from db: " + err.Error())
+                w.WriteHeader(http.StatusInternalServerError)
+        }</span>
+}
+
+func getString(input interface{}) string <span class="cov8" title="1">{
+        deserializedObject, deserializationErr := json.Marshal(input)
+        stringObject := ""
+
+        if deserializationErr != nil </span><span class="cov0" title="0">{
+                log.Error("Error while deserializing data: " + deserializationErr.Error())
+        }</span> else<span class="cov8" title="1"> {
+                stringObject = string(deserializedObject)
+        }</span>
+
+        <span class="cov8" title="1">return stringObject</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

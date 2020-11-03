@@ -5,11 +5,14 @@ import (
 	"go.uber.org/zap"
 )
 
-var ConsumerGroupName string
-var ZkHost string
-var Topic string
-var ServerPort string
-var log zap.Logger
+var (
+	ConsumerGroupName  string
+	ZkHost             string
+	Topic              string
+	ServerPort         string
+	log                zap.Logger
+	InvalidDataMessage = "invalid data received"
+)
 
 func InitConfig() {
 	viper.SetConfigName("config")
@@ -18,7 +21,7 @@ func InitConfig() {
 	viper.AutomaticEnv()
 
 	err := viper.ReadInConfig()
-	if err !=nil {
+	if err != nil {
 		log.Error("Error while reading config file " + err.Error())
 	} else {
 		ConsumerGroupName = viper.GetString("consumer.consumerGroup")

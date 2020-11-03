@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"go-kafka-consumer-restAPI-book-library/domain"
@@ -39,42 +40,55 @@ type BookRepository struct{}
 var booksRepository BookRepositoryInterface
 var log, _ = zap.NewProduction()
 
-func ProcessMessage(msg []byte) {
+func ProcessMessage(msg []byte) (int64, error) {
 	var book domain.Book
+	var isbn int64
+
 	err := json.Unmarshal(msg, &book)
-	if err != nil {
-		log.Error("Error while decoding kafka message to book object: " + err.Error())
-	} else if isValid(book) {
-		id := strconv.FormatInt(book.ISBN, 10)
-		bookRow, _ := repository.GetBookById(id)
-		if len(bookRow) == 1 {
-			updateBook(bookRow[0])
-		} else {
-			createBook(book)
-		}
-	} else {
+	if err != nil || !isValid(book) {
+		err = errors.New("invalid data received")
 		log.Error("Invalid record received (wont be inserted into db): " + string(msg))
+	} else {
+		id := strconv.FormatInt(book.ISBN, 10)
+		bookRow, _ := booksRepository.getBookById(id)
+		if len(bookRow) == 1 {
+			isbn, err = updateBook(bookRow[0])
+		} else {
+			isbn, err = createBook(book)
+		}
+
+		if err == nil {
+			return isbn, nil
+		} else {
+			log.Error("Failed processing message: " + err.Error())
+		}
 	}
+
+	return -1, err
 }
 
 func isValid(book domain.Book) bool {
 	return book.ISBN == 0 && len(book.Name) > 0 && len(book.Author) > 0
 }
 
-func createBook(book domain.Book) {
+func createBook(book domain.Book) (int64, error) {
 	isbn, err := booksRepository.createBook(book)
 	if err == nil {
 		book.ISBN = isbn
 		log.Info("Successfully inserted kafka record to database: " + getString(book))
+		return isbn, nil
 	}
+	return -1, err
 }
 
-func updateBook(book domain.Book) {
+func updateBook(book domain.Book) (int64, error) {
 	isbn, err := booksRepository.updateBook(book)
 	if err == nil {
 		book.ISBN = isbn
 		log.Info("Successfully updated book: " + getString(book))
+		return isbn, nil
 	}
+	return -1, err
 }
 
 func GetBookByIdHandler(w http.ResponseWriter, r *http.Request) {

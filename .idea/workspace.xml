@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad4d879-6c22-4d98-914a-b574dc74715e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/services/bookService_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/cover.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/AppConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/AppConfig.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/consumer/KafkaConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/KafkaConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/book.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/book.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/bookRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/bookRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/bookService.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/bookService_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookService_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/cover.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/cover.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +28,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jMjOmk986U1Hk8W25iZriYaS3P" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -40,7 +45,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Go Test.go test go-kafka-consumer-restAPI-book-library/services">
+  <component name="RunManager" selected="Go Test.TestGetBookByIdHandlerFailureNotFound in go-kafka-consumer-restAPI-book-library/services">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go-kafka-consumer-restAPI-book-library" />
       <working_directory value="$PROJECT_DIR$" />
@@ -51,15 +56,7 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="go-kafka-consumer-restAPI-book-library" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/main.go" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetAllBooksHandlerFailure in go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="go-kafka-consumer-restAPI-book-library" />
       <working_directory value="$PROJECT_DIR$/services" />
       <framework value="gotest" />
@@ -67,12 +64,60 @@
       <package value="go-kafka-consumer-restAPI-book-library/services" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetAllBooksHandlerFailure\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetAllBooksHandlerSuccess in go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-kafka-consumer-restAPI-book-library" />
+      <working_directory value="$PROJECT_DIR$/services" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="go-kafka-consumer-restAPI-book-library/services" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetAllBooksHandlerSuccess\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetBookByIdHandlerFailure in go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-kafka-consumer-restAPI-book-library" />
+      <working_directory value="$PROJECT_DIR$/services" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="go-kafka-consumer-restAPI-book-library/services" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetBookByIdHandlerFailure\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetBookByIdHandlerFailureNotFound in go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-kafka-consumer-restAPI-book-library" />
+      <working_directory value="$PROJECT_DIR$/services" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="go-kafka-consumer-restAPI-book-library/services" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetBookByIdHandlerFailureNotFound\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetBookByIdHandlerSuccess in go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-kafka-consumer-restAPI-book-library" />
+      <working_directory value="$PROJECT_DIR$/services" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="go-kafka-consumer-restAPI-book-library/services" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGetBookByIdHandlerSuccess\E$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.go test go-kafka-consumer-restAPI-book-library/services" />
-        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.TestGetBookByIdHandlerFailureNotFound in go-kafka-consumer-restAPI-book-library/services" />
+        <item itemvalue="Go Test.TestGetBookByIdHandlerFailure in go-kafka-consumer-restAPI-book-library/services" />
+        <item itemvalue="Go Test.TestGetBookByIdHandlerSuccess in go-kafka-consumer-restAPI-book-library/services" />
+        <item itemvalue="Go Test.TestGetAllBooksHandlerFailure in go-kafka-consumer-restAPI-book-library/services" />
+        <item itemvalue="Go Test.TestGetAllBooksHandlerSuccess in go-kafka-consumer-restAPI-book-library/services" />
       </list>
     </recent_temporary>
   </component>
@@ -81,8 +126,11 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Code refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring" />
+    <MESSAGE value="Refactoring for test caes, bug fixes" />
+    <MESSAGE value="Refactoring for test cases, bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring for test cases, bug fixes" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -92,72 +140,67 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="561" y="245" key="#Go_Modules/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603696019360" />
-    <state x="873" y="194" key="#xdebugger.evaluate" timestamp="1603731384647">
+    <state x="873" y="194" key="#xdebugger.evaluate" timestamp="1604404660757">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="873" y="194" key="#xdebugger.evaluate/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709820338" />
-    <state x="873" y="194" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1603731384647" />
-    <state x="313" y="0" key="CommitChangelistDialog2" timestamp="1603733169421">
+    <state x="873" y="194" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1604404660757" />
+    <state x="313" y="0" key="CommitChangelistDialog2" timestamp="1604399771692">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="313" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1603733169421" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1603732870306">
+    <state x="313" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1604399771692" />
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="282" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603712054146" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="282" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603712054145" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="282" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603712054145" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="282" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603712054146" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709841262" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709841261" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709841261" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1603732870306">
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1604419754625">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709841262" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1603733173075">
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1604419754625" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1604399774364">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1603733173075" />
-    <state x="477" y="11" width="581" height="801" key="find.popup" timestamp="1603729855403">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1604399774364" />
+    <state x="477" y="11" width="581" height="801" key="find.popup" timestamp="1604399575620">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="11" width="581" height="801" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1603729855403" />
+    <state x="477" y="11" width="581" height="801" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1604399575620" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/services/bookService.go</url>
-          <line>41</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/repository/bookRepository.go</url>
           <line>30</line>
@@ -165,8 +208,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/config/AppConfig.go</url>
-          <line>19</line>
+          <line>22</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService.go</url>
+          <line>43</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService.go</url>
+          <line>53</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService.go</url>
+          <line>84</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService.go</url>
+          <line>74</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService_test.go</url>
+          <line>171</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/services/bookService.go</url>
+          <line>116</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
