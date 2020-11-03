@@ -4,6 +4,7 @@ it creates/updates the records in database. Additionally, it exposes certain end
 #### This project demonstrates usage of: 
 - Listening from a kafka topic
 - Setup and querying SQL db
+- goroutine, waitGroup and defer statements
 - Exposing Restful APIs for reading data from database
 - Config management from external files (Using Viper)
 - Logging (Using zap)

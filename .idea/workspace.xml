@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aad4d879-6c22-4d98-914a-b574dc74715e" name="Default Changelist" comment="Code refactoring">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kafka-consumer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="aad4d879-6c22-4d98-914a-b574dc74715e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/services/bookService_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/consumer/KafkaConsumer.go" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/KafkaConsumer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/book.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/book.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repository/bookRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/bookRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/bookService.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/bookService.go" afterDir="false" />
     </list>
@@ -42,7 +40,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.go test go-kafka-consumer-restAPI-book-library/services">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="go-kafka-consumer-restAPI-book-library" />
       <working_directory value="$PROJECT_DIR$" />
@@ -61,8 +59,19 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go test go-kafka-consumer-restAPI-book-library/services" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="go-kafka-consumer-restAPI-book-library" />
+      <working_directory value="$PROJECT_DIR$/services" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="go-kafka-consumer-restAPI-book-library/services" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test go-kafka-consumer-restAPI-book-library/services" />
         <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
@@ -70,6 +79,10 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Code refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -84,10 +97,10 @@
     </state>
     <state x="873" y="194" key="#xdebugger.evaluate/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709820338" />
     <state x="873" y="194" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1603731384647" />
-    <state x="313" y="0" key="CommitChangelistDialog2" timestamp="1603733105388">
+    <state x="313" y="0" key="CommitChangelistDialog2" timestamp="1603733169421">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="313" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1603733105388" />
+    <state x="313" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1603733169421" />
     <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1603732870306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -128,6 +141,10 @@
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1603709841262" />
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1603732870306" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1603733173075">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1603733173075" />
     <state x="477" y="11" width="581" height="801" key="find.popup" timestamp="1603729855403">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -138,12 +155,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/services/bookService.go</url>
-          <line>15</line>
+          <line>41</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/repository/bookRepository.go</url>
-          <line>31</line>
+          <line>30</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

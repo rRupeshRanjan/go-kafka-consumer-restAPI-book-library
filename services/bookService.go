@@ -8,8 +8,35 @@ import (
 	"go-kafka-consumer-restAPI-book-library/repository"
 	"go.uber.org/zap"
 	"net/http"
+	"strconv"
 )
 
+type BookRepositoryInterface interface {
+	getBookById(id string) ([]domain.Book, error)
+	getAllBooks() ([]domain.Book, error)
+	createBook(book domain.Book) (int64, error)
+	updateBook(book domain.Book) (int64, error)
+}
+
+func (b BookRepository) getBookById(id string) ([]domain.Book, error) {
+	return repository.GetBookById(id)
+}
+
+func (b BookRepository) getAllBooks() ([]domain.Book, error) {
+	return repository.GetAllBooks()
+}
+
+func (b BookRepository) createBook(book domain.Book) (int64, error) {
+	return repository.CreateBook(book)
+}
+
+func (b BookRepository) updateBook(book domain.Book) (int64, error) {
+	return repository.UpdateBook(book)
+}
+
+type BookRepository struct{}
+
+var booksRepository BookRepositoryInterface
 var log, _ = zap.NewProduction()
 
 func ProcessMessage(msg []byte) {
@@ -18,9 +45,10 @@ func ProcessMessage(msg []byte) {
 	if err != nil {
 		log.Error("Error while decoding kafka message to book object: " + err.Error())
 	} else if isValid(book) {
-		row, _ := repository.GetBookById(string(book.ISBN))
-		if row.Next() {
-			updateBook(book)
+		id := strconv.FormatInt(book.ISBN, 10)
+		bookRow, _ := repository.GetBookById(id)
+		if len(bookRow) == 1 {
+			updateBook(bookRow[0])
 		} else {
 			createBook(book)
 		}
@@ -34,7 +62,7 @@ func isValid(book domain.Book) bool {
 }
 
 func createBook(book domain.Book) {
-	isbn, err := repository.InsertBook(book)
+	isbn, err := booksRepository.createBook(book)
 	if err == nil {
 		book.ISBN = isbn
 		log.Info("Successfully inserted kafka record to database: " + getString(book))
@@ -42,7 +70,7 @@ func createBook(book domain.Book) {
 }
 
 func updateBook(book domain.Book) {
-	isbn, err := repository.UpdateBook(book)
+	isbn, err := booksRepository.updateBook(book)
 	if err == nil {
 		book.ISBN = isbn
 		log.Info("Successfully updated book: " + getString(book))
@@ -54,19 +82,14 @@ func GetBookByIdHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	rows, err := repository.GetBookById(id)
+	books, err := booksRepository.getBookById(id)
 
 	if err == nil {
-		var book domain.Book
-		var ISBN int64
-		var name string
-		var author string
-
-		for rows.Next() {
-			_ = rows.Scan(&ISBN, &name, &author)
-			book = domain.Book{ISBN: ISBN, Name: name, Author: author}
+		if len(books) == 0 {
+			w.WriteHeader(http.StatusNotFound)
+		} else {
+			_, _ = fmt.Fprint(w, getString(books[0]))
 		}
-		_, _ = fmt.Fprint(w, getString(book))
 	} else {
 		log.Error("Error while getting book with id " + id + " with error: " + err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -78,17 +101,9 @@ func GetAllBooksHandler(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var books []domain.Book
-	rows, err := repository.GetAllBooks()
+	books, err := booksRepository.getAllBooks()
 
 	if err == nil {
-		var ISBN int64
-		var name string
-		var author string
-
-		for rows.Next() {
-			_ = rows.Scan(&ISBN, &name, &author)
-			books = append(books, domain.Book{ISBN: ISBN, Name: name, Author: author})
-		}
 		_, _ = fmt.Fprint(w, getString(books))
 	} else {
 		log.Error("Error while getting all books from db: " + err.Error())
@@ -98,11 +113,13 @@ func GetAllBooksHandler(w http.ResponseWriter, _ *http.Request) {
 
 func getString(input interface{}) string {
 	deserializedObject, deserializationErr := json.Marshal(input)
+	stringObject := ""
 
 	if deserializationErr != nil {
 		log.Error("Error while deserializing data: " + deserializationErr.Error())
-		return ""
 	} else {
-		return string(deserializedObject)
+		stringObject = string(deserializedObject)
 	}
+
+	return stringObject
 }

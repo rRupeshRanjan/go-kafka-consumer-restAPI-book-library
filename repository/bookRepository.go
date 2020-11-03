@@ -13,7 +13,7 @@ var log, _ = zap.NewProduction()
 const (
 	getQuery                = "SELECT * FROM books WHERE ISBN=?"
 	getAllQuery             = "SELECT ISBN, name, author FROM books"
-	insertQuery             = "INSERT INTO books (name, author) VALUES (?, ?)"
+	createQuery             = "INSERT INTO books (name, author) VALUES (?, ?)"
 	updateQuery             = "UPDATE books SET name=?, author=? where ISBN=?"
 	initializeDatabaseQuery = `CREATE TABLE IF NOT EXISTS books (
 		ISBN INTEGER PRIMARY KEY,
@@ -27,19 +27,41 @@ func InitBooksDb() error {
 	return err
 }
 
-func GetAllBooks() (*sql.Rows, error) {
-	return database.Query(getAllQuery)
+func GetAllBooks() ([]domain.Book, error) {
+	rows, err := database.Query(getAllQuery)
+
+	var books []domain.Book
+	if err == nil {
+		var book domain.Book
+		for rows.Next() {
+			_ = rows.Scan(&book.ISBN, &book.Name, &book.Author)
+			books = append(books, book)
+		}
+	}
+
+	return books, err
 }
 
-func GetBookById(id string) (*sql.Rows, error) {
-	return database.Query(getQuery, id)
+func GetBookById(id string) ([]domain.Book, error) {
+	rows, err := database.Query(getQuery, id)
+
+	var books []domain.Book
+	if err == nil {
+		var book domain.Book
+		for rows.Next() {
+			_ = rows.Scan(&book.ISBN, &book.Name, &book.Author)
+			books = append(books, book)
+		}
+	}
+
+	return books, err
 }
 
-func InsertBook(book domain.Book) (int64, error) {
-	statement, _ := database.Prepare(insertQuery)
-	result, insertRecordErr := statement.Exec(book.Name, book.Author)
-	if insertRecordErr != nil {
-		log.Error("Error while inserting record into books table: " + insertRecordErr.Error())
+func CreateBook(book domain.Book) (int64, error) {
+	statement, _ := database.Prepare(createQuery)
+	result, createRecordErr := statement.Exec(book.Name, book.Author)
+	if createRecordErr != nil {
+		log.Error("Error while creating record into books table: " + createRecordErr.Error())
 	}
 	return result.LastInsertId()
 }
